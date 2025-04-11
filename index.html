@@ -15,7 +15,35 @@
     </h1>
     <div>
         <fieldset>
+            <h2>
+                input questions/answers here
+            </h2>
+            <label>input csr data file</label>
+            <input type = "file" id = "questionFileInput">
+            <br>
+            <label>or manually type out questions and answers (separate question/answer by COMMA ONLY, separate questions by line break):</label>
+            <br><textarea id = "questionTextInput">
+            </textarea>
+            <form id = "questionInput"><input type = "submit"></form>
+            <p id = "questionInputError"></p>
+        </fieldset>
+    </div>
+    <div>
+        <fieldset>
             <legend>Quiz</legend>
+            <h2>
+                quiz info
+            </h2>
+            <h3>
+                quiz type:
+            </h3>
+            <input type = "radio" name = "questiontype" id = "multiple choice"> <label>multiple choice</label>
+            <input type = "radio" name = "questiontype" id = "input answer"> <label>type answer</label> 
+            <input type = "radio" name = "questiontype" id = "incorrect only"> <label>past incorrect only</label> <br>
+            <h2>
+                quiz away
+            </h2>
+            <button id = "start" value = "false">start quizzing!</button> <br><br>
             <table>
                 <tr>
                     <th>Quiz</th>
@@ -23,7 +51,8 @@
                 </tr>
                 <tr>
                     <td>
-                        <p id = "question">Question</p>
+                        <p>Question</p>
+                        <p id = "quizQuestion"></p>
                         <form>
                                 <label>Answer</label>
                                 <input type = "text" id = "answer" name = "answer" value =""> <br>
@@ -31,11 +60,20 @@
                     </td>
                     <td>
                         <button type = "button">Check Answer</button>
-                        <p id = "check">Click Check Answer to check answer</p>
+                        <p name = "correct"></p>
                     </td>
                     <td></td>
                 </tr>
             </table>
+        </fieldset>
+    </div>
+    <div>
+        <fieldset>
+            <h2>incorrect questions
+            </h2>
+            <ol>
+                <li>no incorrect answers yet!</li>
+            </ol>
         </fieldset>
     </div>
 </body>
