@@ -6,25 +6,24 @@ document.getElementById("questionInput").addEventListener("submit",questionInput
 function questionInput(evt) {
     //testing: alert the value of each?
     console.log("Event determined");
-    let fileInput = document.getElementById("questionFileInput");
-    let textInput = document.getElementById("questionTextInput");
+    const f = document.getElementById("questionFileInput").files[0];
+    const textInput = document.getElementById("questionTextInput").value;
+    let fileInput = "";
 
     //read file input
-    if (fileInput) {
-        var r = new FileReader();
-        r.onload = function (e) {
-            var contents = e.target.result;
-            document.getElementById("ReadResult").innerHTML = contents;
-        }
-        r.readAsText(f);
+    if (f) {
+        var reader = new FileReader();
+        reader.readAsText(f);
+        fileInput = reader.result;
+        console.log("File read")
     } else {
-        alert("Failed to load file input!");
+        console.log("Failed to load file input!");
     }
 
-    if (fileInput && textInput) {
+    if (f && textInput) {
         console.log("Two inputs detected:\n" + fileInput + "\n" + textInput);
     }
-    else if (fileInput) {
+    else if (f) {
         console.log("File input:\n" + fileInput);
     }
     else if (textInput) {
