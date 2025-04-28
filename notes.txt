@@ -1,0 +1,14 @@
+4/26/25
+since fileReader is async, can't directly store file contents into a variable :(
+stackoverflow my goat --> https://stackoverflow.com/questions/53144428/store-contents-of-filereader-in-a-variable
+
+4/27/25
+reverted back to when text input started working then readded the working fileReader code
+however it doesn't store in the global variable outside the function scope
+    probably because when it submits, it auto refreshes --> complete reset to empty string again
+idk i think i might have to write it to a file then read that
+    on event submit --> rewrite to file
+        (make sure to check double input)
+    every time it refreshes:
+        if question file not empty:
+            question + answer code
