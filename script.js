@@ -1,10 +1,11 @@
 console.log("init complete");
-document.getElementById("questionInput").addEventListener("click",questionInput);
+document.getElementById("questionInput").addEventListener("click",takeQuestionInput);
 document.getElementById("start").addEventListener("click", startQuizzer)
 var textInput = "";
 var fileInput = "";
+var quizQuestions = "";
 
-function questionInput() {
+function takeQuestionInput() {
     //testing: alert the value of each?
     console.log("Event determined");
     const file = document.getElementById("questionFileInput").files[0];
@@ -25,7 +26,7 @@ function questionInput() {
         document.getElementById("loading").hidden = true;
         document.getElementById("quizFieldSet").hidden = false;
         }
-        reader.onerror = () => console.log("File input failed to read");
+        reader.onerror = () => {console.log("File input failed to read"); document.getElementById("questionInputError").innerHTML = "Could not upload questions!";};
     } else {
         console.log("File empty");
     }
@@ -34,34 +35,39 @@ function questionInput() {
 
 function startQuizzer() {
     if (fileInput && textInput) {
-        console.log("Two inputs detected:\n" + fileInput + "\n" + textInput);
+        console.log("Two inputs detected");
+        document.getElementById("Two question inputs detected; please reinput only one");
     }
-    else if (fileInput) {
-        console.log("File input:\n" + fileInput);
+    else if (!(fileInput || textInput)) {
+        console.log("No input detected");
+        document.getElementById("Please input the questions you want to be quizzed about above.");
+    }  
+    else {
+        if (fileInput) {quizQuestions = fileInput;}
+        else if (textInput) {quizQuestions = textInput;}
+        if (document.getElementById("multiple choice").checked) {
+            multiChoiceQuiz();
+        }
+        else if (document.getElementById("input answer").checked) {
+            textAnswerQuiz();
+        }
+        else if (document.getElementById("incorrect only").checked) {
+            wrongAnswersQuiz();
+        }
     }
-    else if (textInput) {
-        console.log("Text input:\n" + textInput);
-    }
-    if (document.getElementById("multiple choice").checked) {
-        multiChoiceQuiz();
-    }
-    else if (document.getElementById("input answer").checked) {
-        textAnswerQuiz();
-    }
-    else if (document.getElementById("incorrect only").checked) {
-        wrongAnswersQuiz();
-    }
-
 }
 
 function multiChoiceQuiz() {
     console.log("Multiple Choice Quiz");
+    console.log("Question/answer input:", quizQuestions);
 }
 
 function textAnswerQuiz() {
     console.log("Text Answer Quiz");
+    console.log("Question/answer input:", quizQuestions);
 }
 
 function wrongAnswersQuiz() {
     console.log("Wrong answers quiz");
+    console.log("Question/answer input:", quizQuestions);
 }
