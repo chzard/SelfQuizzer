@@ -12,3 +12,15 @@ idk i think i might have to write it to a file then read that
     every time it refreshes:
         if question file not empty:
             question + answer code
+4/29/25
+slight issue :(
+if the question itself contains quotations or commas --> slight issue :(
+--> i'll make one ONLY FOR VOCAB, term to term, probably tab separated values but we'll see
+
+5/1/2025
+storing fileinput + text input issue might be caused by form submit --> will work on changing to event listener for button click, might make it stop refreshing and resetting the value of the inputs
+--> similarly might have to replace the start quizzing / check answer buttons
+
+5/8/2025
+file input + text input is working, just won't print out the way i want to
+starting to write script for start quizzing button

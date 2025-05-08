@@ -21,14 +21,15 @@
             <label>input csr data file</label>
             <input type = "file" id = "questionFileInput">
             <br>
-            <label>or manually type out questions and answers (separate question/answer by COMMA ONLY, separate questions by line break):</label>
-            <br><textarea id = "questionTextInput"></textarea>
-            <form id = "questionInput"><input type = "submit"></form>
+            <label>text input questions/answers down here</label>
+            <br><textarea id = "questionTextInput"></textarea> <br>
+            <button id = "questionInput">Submit question input</button>
             <p id = "questionInputError"></p>
         </fieldset>
     </div>
     <div>
-        <fieldset>
+        <p1 id = "loading" hidden>Loading...</p1>
+        <fieldset id = "quizFieldSet">
             <legend>Quiz</legend>
             <h2>
                 quiz info
@@ -36,9 +37,11 @@
             <h3>
                 quiz type:
             </h3>
+            <div>
             <input type = "radio" name = "questiontype" id = "multiple choice"> <label>multiple choice</label>
-            <input type = "radio" name = "questiontype" id = "input answer"> <label>type answer</label> 
+            <input type = "radio" name = "questiontype" id = "input answer" checked> <label>type answer</label> 
             <input type = "radio" name = "questiontype" id = "incorrect only"> <label>past incorrect only</label> <br>
+            </div>
             <h2>
                 quiz away
             </h2>
@@ -52,10 +55,8 @@
                     <td>
                         <p>Question</p>
                         <p id = "quizQuestion"></p>
-                        <form>
-                                <label>Answer</label>
-                                <input type = "text" id = "answer" name = "answer" value =""> <br>
-                        </form>   
+                        <label>Answer</label>
+                        <input type = "text" id = "answer" name = "answer" value =""> <br>
                     </td>
                     <td>
                         <button type = "button">Check Answer</button>
