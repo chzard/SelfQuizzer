@@ -18,11 +18,11 @@
             <h2>
                 input questions/answers here
             </h2>
-            <label>input csr data file</label>
+            <label>input tsv data file (import from sheets)</label>
             <input type = "file" id = "questionFileInput">
             <br>
-            <label>text input questions/answers down here</label>
-            <br><textarea id = "questionTextInput"></textarea> <br>
+            <label>text input questions/answers down here, separate by tab</label>
+            <br><textarea id = "questionTextInput" rows = "8", cols = "50"></textarea> <br>
             <button id = "questionInput">Submit question input</button>
         </fieldset>
     </div>
@@ -49,17 +49,18 @@
             <table>
                 <tr>
                     <th>Quiz</th>
-                    <th>Check</th>
+                    <th>Options</th>
                 </tr>
                 <tr>
                     <td>
                         <p>Question</p>
                         <p id = "quizQuestion"></p>
                         <label>Answer</label>
-                        <input type = "text" id = "answer" name = "answer" value =""> <br>
+                        <input type = "text" id = "userAnswer" name = "answer" value =""> <br>
                     </td>
                     <td>
-                        <button type = "button">Check Answer</button>
+                        <button type = "button" id = "checkAnswer">Check Answer</button>
+                        <button type = "button" id = "skipQuestion">Next question</button>
                         <p name = "correct"></p>
                     </td>
                     <td></td>

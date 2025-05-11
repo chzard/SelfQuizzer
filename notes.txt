@@ -25,3 +25,7 @@ storing fileinput + text input issue might be caused by form submit --> will wor
 file input + text input is working, just won't print out the way i want to
 starting to write script for start quizzing button
 --> scrapping storing input to text file :D
+(also: instead of table, might switch to flexbox css. idk just a thought)
+logic for question/answer
+line by line, split into question/answer
+randomize question --> put into innerhtml of quizquestion
