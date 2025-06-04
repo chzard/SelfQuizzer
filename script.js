@@ -1,7 +1,8 @@
 console.log("init complete");
 
 document.getElementById("questionInput").addEventListener("click",takeQuestionInput);
-document.getElementById("start").addEventListener("click", startQuizzer)
+document.getElementById("start").addEventListener("click", startQuizzer);
+document.getElementById("checkAnswer").addEventListener("click", checkAnswer);
 
 var textInput = "";
 var fileInput = "";
@@ -55,6 +56,7 @@ function startQuizzer() {
         if (fileInput) {quizMaterial = fileInput;}
         else if (textInput) {quizMaterial = textInput;}
         
+        console.log("Quiz starting");
         interpretUserInput();
 
         if (document.getElementById("multiple choice").checked) {
@@ -74,13 +76,32 @@ function multiChoiceQuiz() {
     console.log("Questions:", quizQuestions);
     console.log("Answers:", quizAnswers);
 
+    //start quiz loop
+    document.getElementById("quizQuestion").innerHTML = quizQuestions[0];
+
 }
 
 function textAnswerQuiz() {
     console.log("Text Answer Quiz");
     console.log("Questions:", quizQuestions);
     console.log("Answers:", quizAnswers);
+    var answeredQuestionIndex = [];
+    var qNum = 0;
+    //start quiz loop
+    while (answeredQuestionIndex.length < quizQuestions.length) {
+        qNum = getRandomInt(0, quizQuestions.length);
+        //make sure question was not answered before
+        while (itemInList(qNum,answeredQuestionIndex)) {
+            qNum = getRandomInt(0, quizQuestions.length); 
+        }
+        answeredQuestionIndex.push(qNum);
+        document.getElementById("quizQuestion").innerHTML = quizQuestions[qNum]; 
+    }
+    
+
 }
+
+
 
 function wrongAnswersQuiz() {
     console.log("Wrong answers quiz");
@@ -89,18 +110,49 @@ function wrongAnswersQuiz() {
 }
 
 function interpretUserInput() {
-    //takes user question input and stores question/answer into arrays
     var lines = quizMaterial.split(/\r?\n|\r|\n/g);
-    var q; var a; 
+    var q = ""; var a = ""; 
     var line = [];
     for (let i = 0; i < lines.length; i++) {
         line = lines[i].split("\t");
-        q = line[0];
-        a = line[1];
-        console.log(line, quizQuestions)
+        q = line[0]; a = line[1];
         if (!(q in quizQuestions)) {
             quizQuestions.push(q);
             quizAnswers.push(a);
         }
     }
+}
+
+function checkAnswer() {
+    if (document.getElementById("quizQuestion").innerHTML == "") {
+        document.getElementById("answerFeedback").innerHTML = "You can't check if you answered correctly to a nonexistent question! Input your question/answer set and press the start quizzing button.";
+    }
+    else {
+        var ind = quizQuestions.indexOf(document.getElementById("quizQuestion").innerHTML);
+        //if answer is correct
+        if (document.getElementById("userAnswer").value == quizAnswers[ind]) {
+            document.getElementById("answerFeedback").innerHTML = "Your answer is correct!";
+        }
+        else { //incorrect answer
+            document.getElementById("answerFeedback").innerHTML = "Incorrect;\nThe answer was " + quizAnswers[ind];
+        }
+    }
+}
+
+
+//helper functions
+function getRandomInt(min, max) {
+    const minCeiled = Math.ceil(min);
+    const maxFloored = Math.floor(max);
+    return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The maximum is exclusive and the minimum is inclusive
+  }
+
+function itemInList(element, array) {
+    for (var i = 0; i < array.length; i++) {
+        if (array[i] == element) {
+            return true;
+        }
+    }
+    return false;
+
 }

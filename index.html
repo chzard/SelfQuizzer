@@ -37,7 +37,7 @@
                 quiz type:
             </h3>
             <div>
-            <input type = "radio" name = "questiontype" id = "multiple choice"> <label>multiple choice</label>
+            <input type = "radio" name = "questiontype" id = "multiple choice" hidden> <label hidden>multiple choice</label>
             <input type = "radio" name = "questiontype" id = "input answer" checked> <label>type answer</label> 
             <input type = "radio" name = "questiontype" id = "incorrect only"> <label>past incorrect only</label> <br>
             </div>
@@ -56,14 +56,14 @@
                         <p>Question</p>
                         <p id = "quizQuestion"></p>
                         <label>Answer</label>
-                        <input type = "text" id = "userAnswer" name = "answer" value =""> <br>
+                        <input type = "text" id = "userAnswer" name = "answer" value = ""> <br>
                     </td>
                     <td>
                         <button type = "button" id = "checkAnswer">Check Answer</button>
-                        <button type = "button" id = "skipQuestion">Next question</button>
-                        <p name = "correct"></p>
+                        <button type = "button" id = "nextQuestion">Next question</button>
+                        <br>
+                        <p id = "answerFeedback"></p>
                     </td>
-                    <td></td>
                 </tr>
             </table>
         </fieldset>
