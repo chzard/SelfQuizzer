@@ -37,9 +37,9 @@
                 quiz type:
             </h3>
             <div>
-            <input type = "radio" name = "questiontype" id = "multiple choice" hidden> <label hidden>multiple choice</label>
-            <input type = "radio" name = "questiontype" id = "input answer" checked> <label>type answer</label> 
-            <input type = "radio" name = "questiontype" id = "incorrect only"> <label>past incorrect only</label> <br>
+            <input type = "radio" name = "questiontype" id = "multiChoice" hidden> <label hidden>multiple choice</label>
+            <input type = "radio" name = "questiontype" id = "inputAnsAsText" checked> <label>type answer</label> 
+            <input type = "radio" name = "questiontype" id = "incOnly"> <label>past incorrect only</label> <br>
             </div>
             <h2>
                 quiz away
@@ -53,10 +53,14 @@
                 </tr>
                 <tr>
                     <td>
-                        <p>Question</p>
+                        <label>Question </label>
                         <p id = "quizQuestion"></p>
                         <label>Answer</label>
                         <input type = "text" id = "userAnswer" name = "answer" value = ""> <br>
+                        <input type = "radio" id = "userMC1" name = "MC" hidden> <label id = "MC1" hidden></label> <br>
+                        <input type = "radio" id = "userMC2" name = "MC" hidden> <label id = "MC2" hidden></label> <br>
+                        <input type = "radio" id = "userMC3" name = "MC" hidden> <label id = "MC3" hidden></label> <br>
+
                     </td>
                     <td>
                         <button type = "button" id = "checkAnswer">Check Answer</button>
@@ -72,8 +76,8 @@
         <fieldset>
             <h2>incorrect questions
             </h2>
-            <ol>
-                <li>no incorrect answers yet!</li>
+            <ol id = "incorrectQuestions">
+                <li id = "noInc">no incorrect answers yet!</li>
             </ol>
         </fieldset>
     </div>
