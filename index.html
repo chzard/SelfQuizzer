@@ -41,15 +41,20 @@
             <input type = "radio" name = "questiontype" id = "inputAnsAsText" checked> <label>type answer</label> 
             <input type = "radio" name = "questiontype" id = "incOnly"> <label>past incorrect only</label> <br>
             </div>
+            <div>
+                <label>Total questions: </label><p id = "totalQuestionsCount">0</p>
+            </div>
             <h2>
                 quiz away
             </h2>
-            <button id = "start" value = "false">start quizzing!</button> <br><br>
+            <button id = "start" value = "false">Start Quizzing!</button> 
+            <button id = "resetInc" value = "false">Reset Incorrect Questions</button> <br><br>
             <label id = "questionInputError"></label>
             <table>
                 <tr>
                     <th>Quiz</th>
                     <th>Options</th>
+                    <th>Quiz Info</th>
                 </tr>
                 <tr>
                     <td>
@@ -60,13 +65,21 @@
                         <input type = "radio" id = "userMC1" name = "MC" hidden> <label id = "MC1" hidden></label> <br>
                         <input type = "radio" id = "userMC2" name = "MC" hidden> <label id = "MC2" hidden></label> <br>
                         <input type = "radio" id = "userMC3" name = "MC" hidden> <label id = "MC3" hidden></label> <br>
-
                     </td>
                     <td>
                         <button type = "button" id = "checkAnswer">Check Answer</button>
-                        <button type = "button" id = "nextQuestion">Next question</button>
+                        <button type = "button" id = "nextQuestion" hidden>Next question</button>
+                        <button type = "button" id = "skipQuestion">Skip question</button>
                         <br>
                         <p id = "answerFeedback"></p>
+                    </td>
+                    <td>
+                        <label>Skipped questions: </label><p id = "skippedQuestionsCount">0</p>
+                        <label>Unanswered questions: </label><p id = "unansweredQuestionsCount">0</p>
+                        <label>Answered questions: </label><p id = "answeredQuestionsCount">0</p>
+                        <label>Incorrect questions: </label><p id = "incorrectQuestionsCount">0</p>
+                        <label>Correct questions: </label><p id = "correctQuestionsCount">0</p>
+                        <label>Accuracy: </label><p id = "accuracyNum">0</p><label>%</label>
                     </td>
                 </tr>
             </table>
@@ -74,10 +87,10 @@
     </div>
     <div>
         <fieldset>
-            <h2>incorrect questions
+            <h2>Past incorrect questions (from all quizzes so far)
             </h2>
-            <ol id = "incorrectQuestions">
-                <li id = "noInc">no incorrect answers yet!</li>
+            <ol id = "incorrectQuestionsList">
+                <li id = "noInc">No incorrect answers</li>
             </ol>
         </fieldset>
     </div>
