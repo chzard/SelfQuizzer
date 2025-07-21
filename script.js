@@ -33,8 +33,8 @@ function takeQuestionInput() {
     if (file) {
         //Loading
         console.log("Loading file");
-        document.getElementById("loading").hidden = false;
-        document.getElementById("quizFieldSet").hidden = true;
+        //document.getElementById("loading").hidden = false;
+        //document.getElementById("quizFieldSet").hidden = true;
         //read file input
         const reader = new FileReader();
         reader.readAsText(file);
@@ -42,8 +42,8 @@ function takeQuestionInput() {
         function storeResults(result) {
             fileInput = result;
             console.log("File read")
-            document.getElementById("loading").hidden = true;
-            document.getElementById("quizFieldSet").hidden = false;
+            //document.getElementById("loading").hidden = true;
+            //document.getElementById("quizFieldSet").hidden = false;
         }
         reader.onerror = () => {console.log("File input failed to read"); document.getElementById("questionInputError").innerHTML = "Could not upload questions!";};
     }
@@ -77,7 +77,7 @@ function initQuiz() {
         document.getElementById("unansweredQuestionsCount").innerHTML = quizAnswers.length;
         prevQ = -1; 
         wrongQuestions = [];
-        wrongAnswers = [];
+        wrongQuestionsAnswers = [];
         skippedQuestionsCount = 0;
         answeredQuestions = [];
         updateStats(); document.getElementById("accuracyNum").innerHTML = 0;
@@ -130,6 +130,7 @@ function checkAnswer() {
             }
         }
         else { //incorrect answer
+            
             document.getElementById("answerFeedback").innerHTML = "Incorrect;\nThe answer was " + quizAnswers[ind];
             wrongQuestions.push(curQuestion);
             wrongQuestionsAnswers.push(quizAnswers[ind]);
@@ -137,10 +138,12 @@ function checkAnswer() {
                 //delete first "no incorrect answers yet"
                 document.getElementById("noInc").hidden = true;
                 //add to incorrect questions
-                const node = document.createElement("li");
-                const textnode = document.createTextNode(curQuestion);
+                var node = document.createElement("li");
+                var textnode = document.createTextNode(curQuestion);
                 node.appendChild(textnode);
                 document.getElementById("incorrectQuestionsList").appendChild(node);
+                totalWrongQuestions.push(curQuestion);
+                totalWrongQuestionsAnswers.push(quizAnswers[ind]);
             }
         }
         updateStats();
@@ -177,12 +180,6 @@ function nextQuestion() {
         document.getElementById("checkAnswer").disabled = true;
         document.getElementById('start').innerHTML = "Restart quiz";
         document.getElementById('nextQuestion').disabled = true;
-        for (var i=0; i<wrongQuestions.length; i++) {
-            if (!itemInList(wrongQuestions[i], totalWrongQuestions)) {
-                totalWrongQuestions.push(wrongQuestions[i]);
-                totalWrongQuestionsAnswers.push(wrongQuestionsAnswers[i]);
-            }
-        }
     }
 }
 
@@ -199,7 +196,13 @@ function setNewQuestion(skip = false) {
 }
 
 function resetInc() {
+    var node = document.getElementById("incorrectQuestionsList");
+    for (var i=0; i<totalWrongQuestions.length; i++) {
+        node.removeChild(node.lastChild);
+    }
+    document.getElementById("noInc").hidden = false;
     totalWrongQuestions = []; totalWrongQuestionsAnswers = [];
+
 }
 
 //helper functions

@@ -1,0 +1,64 @@
+.screenContainer {
+    display: grid;
+    grid-template-columns: 1fr 2fr; 
+    grid-template-areas:
+    "lbar rbar"
+    ;
+    height:100vh;
+}
+
+.screenContainer > div.left {
+    grid-area: lbar;
+    text-align: center;
+}
+
+.screenContainer > div.right {
+    grid-area: rbar;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+    "quiz quiz"
+    "stats inc";
+}
+
+.flexContainerV {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-evenly;
+}
+
+.flexContainerH {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+}
+
+.buttonContainer {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+}
+
+.quizContainer {
+    grid-area:quiz;
+    text-align: center;
+}
+
+.stats > div {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+}
+#percent {
+    display: flex;
+    flex-flow: rown nowrap;
+    justify-content: flex-start;
+}
+
+.right > .left {
+    grid-area: stats;
+}
+
+.right > .inc {
+    grid-area: inc;
+}
