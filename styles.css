@@ -1,3 +1,47 @@
+/*font import*/
+@font-face {
+    font-family: "rubikdirt";
+    src: url(./fonts/RubikDirt-Regular.ttf);
+}
+
+body {
+    color: rgb(4, 49, 45);
+    background-color: rgb(30, 109, 71);
+    text-align: center;
+    font: 100% 'courier new', monospace;
+    width: 100vw;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+#questionInputError {
+    color: rgb(141, 5, 5);
+    font-style: bold;
+}
+
+#stats, #usercontrols {
+    border: none;
+}
+
+button {
+    font: 100% 'courier new', monospace;
+    border: 0.2em solid rgb(149, 190, 136);
+    background-color: rgb(190, 240, 190);
+    border-radius: 7px;
+}
+button:hover{
+    background-color: rgb(120, 170, 120);
+    border: 0.25em solid rgb(79, 120, 66);
+}
+.desc {
+    font: 0.75em 'courier new', monospace;
+}
+
+#themesWrapper {
+    border: 0.07em solid blueviolet;
+    padding: 2% 2% 2% 2%;
+}
+
 .screenContainer {
     display: grid;
     grid-template-columns: 1fr 2fr; 
@@ -5,26 +49,43 @@
     "lbar rbar"
     ;
     height:100vh;
+    width:100vw;
+    column-gap: 1%;
+    row-gap: 1%;
+}
+
+#questionTextInput {
+    width: 75%;
 }
 
 .screenContainer > div.left {
     grid-area: lbar;
     text-align: center;
+    /* background-color: aqua; */
+}
+
+.flexContainerV > div {
+    padding: 2vw 2vw 2vw 2vw;
+    border-radius: 15px;
+    border: 2px solid rgb(94, 211, 124);
+    background-color: rgb(103, 172, 103);
 }
 
 .screenContainer > div.right {
     grid-area: rbar;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    column-gap: 2%;
     grid-template-areas:
     "quiz quiz"
     "stats inc";
 }
 
 .flexContainerV {
+    height: 100%;
     display: flex;
     flex-flow: column nowrap;
-    justify-content: space-evenly;
+    justify-content: space-between;
 }
 
 .flexContainerH {
@@ -40,7 +101,7 @@
 }
 
 .quizContainer {
-    grid-area:quiz;
+    grid-area: quiz;
     text-align: center;
 }
 
@@ -49,10 +110,15 @@
     flex-flow: row nowrap;
     justify-content: space-evenly;
 }
+
 #percent {
     display: flex;
-    flex-flow: rown nowrap;
+    flex-flow: row nowrap;
     justify-content: flex-start;
+}
+
+.quizContainer > div.wrapText {
+    text-wrap: stable;
 }
 
 .right > .left {
@@ -61,4 +127,35 @@
 
 .right > .inc {
     grid-area: inc;
+}
+
+.stats, .inc > div {
+    height: 100%;
+}
+
+#titlediv {
+    font: 1.5em "rubikdirt", monospace;
+}
+
+@media (max-width: 800px) {
+    .screenContainer{
+        display: flex;
+        /* background-color: blue; */
+        flex-flow: column nowrap;
+        justify-content: space-evenly;
+        height: auto;
+        text-wrap: stable;
+    }
+    .screenContainer > div.right {
+        display: flex;
+        /* background-color: green; */
+        flex-flow: column nowrap;
+        justify-content: space-evenly;
+        height:auto;
+        text-wrap: stable;
+    }
+    .right > .inc {
+        text-wrap: stable;
+        text-align: center;
+    }
 }

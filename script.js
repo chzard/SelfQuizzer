@@ -8,6 +8,14 @@ document.getElementById("checkAnswer").addEventListener("click", checkAnswer);
 document.getElementById("nextQuestion").addEventListener("click", nextQuestion);
 document.getElementById("skipQuestion").addEventListener("click", skipQuestion);
 document.getElementById("resetInc").addEventListener("click", resetInc);
+document.getElementById("themes").addEventListener("click", expThemes);
+//document.getElementsByName("theme").addEventListener("change", updateTheme);
+
+var themeradios = document.forms["themesForm"].elements["theme"];
+for (var i=0; i < themeradios.length; i++) {
+    //themeradios[i].onclick = updateTheme();
+    themeradios[i].addEventListener("click", updateTheme);
+}
 
 var textInput = "";
 var fileInput = "";
@@ -94,7 +102,7 @@ function interpretUserInput() {
     for (let i = 0; i < lines.length; i++) {
         line = lines[i].split("\t");
         q = line[0]; a = line[1];
-        if (!(q in quizQuestions)) {
+        if (!(q in quizQuestions) && (a != null) && (q != null)) {
             quizQuestions.push(q);
             quizAnswers.push(a);
         }
@@ -124,8 +132,8 @@ function checkAnswer() {
                 li.parentNode.removeChild(li);
                 totalWrongQuestions = delItemList(i, totalWrongQuestions);
                 totalWrongQuestionsAnswers = delItemList(i, totalWrongQuestionsAnswers);
-                console.log(totalWrongQuestions);
-                console.log(totalWrongQuestionsAnswers);
+                //console.log(totalWrongQuestions);
+                //console.log(totalWrongQuestionsAnswers);
                 if (totalWrongQuestionsAnswers.length==0) {document.getElementById("noInc").hidden = false;}
             }
         }
@@ -204,6 +212,34 @@ function resetInc() {
     totalWrongQuestions = []; totalWrongQuestionsAnswers = [];
 
 }
+
+function expThemes() {
+    var hide = document.getElementById("themesWrapper").hidden;
+    document.getElementById("themesWrapper").hidden = !hide;
+    var text = document.getElementById("themes").innerHTML;
+    if (text == "Expand themes") {document.getElementById("themes").innerHTML = "Collapse themes";}
+    else {document.getElementById("themes").innerHTML = "Expand themes";}
+}
+
+function updateTheme() {
+    //var tm = document.getElementsByName("theme").value;
+    //var tm = document.getElementById("themesForm").value;
+    var tm = document.querySelector('input[name="theme"]:checked').value;
+    console.log("Theme updating");
+    console.log(tm);
+    switch (tm) {
+        case "dark":
+            document.body.style.backgroundColor = "black";
+            document.body.style.color = "white";
+            break;
+        default:
+            document.body.style.backgroundColor = "white";
+            document.body.style.color = "black";
+            document.body.style.fontFamily = 'Courier New', monospace;
+            break;
+    }
+}
+
 
 //helper functions
 function getRandomInt(min, max) {
