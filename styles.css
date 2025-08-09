@@ -3,20 +3,63 @@
     font-family: "rubikdirt";
     src: url(./fonts/RubikDirt-Regular.ttf);
 }
+@font-face {
+    font-family: "brizel";
+    src: url(./fonts/Brizel.ttf);
+}
 
 body {
     color: rgb(4, 49, 45);
-    background-color: rgb(30, 109, 71);
+    background-color: rgb(26, 43, 8);
     text-align: center;
     font: 100% 'courier new', monospace;
     width: 100vw;
     margin: 0;
     box-sizing: border-box;
+    block-size: 100vh;
 }
 
+#titlediv {
+    font: 1.5em "brizel", monospace;
+    background-color: rgb(219, 211, 136);
+}
+
+#titleInnerWrapper {
+    border-radius: 4em;
+    border: 0.3em solid rgb(165, 45, 8);
+    background-color: rgb(26, 43, 8);
+    color: rgb(247, 235, 127);
+}
+
+#titleInnerWrapper:hover {
+    border-radius: 5em;
+    border: 0.3em solid rgb(133, 23, 4);
+    background-color: rgb(73, 14, 68);
+    color: rgb(247, 228, 59);
+}
+
+.star {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.star > p {
+    font-size:2em;
+    color:rgb(247, 235, 127);
+}
+
+.lightwrapper {
+    border-radius: 1.5em;
+    border:0.25em dashed rgb(238, 162, 74);
+    background-color: rgb(238, 221, 189);
+    margin-bottom: 2vh;
+}
+
+
 #questionInputError {
-    color: rgb(141, 5, 5);
-    font-style: bold;
+    color: rgb(114, 28, 7);
+    font-weight: bold;
 }
 
 #stats, #usercontrols {
@@ -25,20 +68,39 @@ body {
 
 button {
     font: 100% 'courier new', monospace;
-    border: 0.2em solid rgb(149, 190, 136);
-    background-color: rgb(190, 240, 190);
+    border: 0.2em solid rgb(145, 145, 10);
+    background-color: rgb(185, 200, 105);
     border-radius: 7px;
 }
 button:hover{
-    background-color: rgb(120, 170, 120);
-    border: 0.25em solid rgb(79, 120, 66);
+    background-color: rgb(135, 150, 55);
+    border: 0.25em solid rgb(100, 125, 10);
+    color: rgb(240, 220, 80);
 }
 .desc {
     font: 0.75em 'courier new', monospace;
 }
 
+input[type='radio']:after {
+        border-radius: 15px;
+        background-color: #d1f3aa;
+        content: '';
+        display: inline-block;
+    }
+
+input[type='radio']:checked:after {
+        width: 10px;
+        height: 10px;
+        border-radius: 15px;
+        position: relative;
+        background-color: #8cb332;
+        content: '';
+        display: inline-block;
+        border: 2px solid white;
+}
+
 #themesWrapper {
-    border: 0.07em solid blueviolet;
+    border: 0.07em solid rgb(105, 185, 129);
     padding: 2% 2% 2% 2%;
 }
 
@@ -61,14 +123,15 @@ button:hover{
 .screenContainer > div.left {
     grid-area: lbar;
     text-align: center;
+    gap: 1vh;
     /* background-color: aqua; */
 }
 
 .flexContainerV > div {
     padding: 2vw 2vw 2vw 2vw;
     border-radius: 15px;
-    border: 2px solid rgb(94, 211, 124);
-    background-color: rgb(103, 172, 103);
+    border: 2px solid rgb(235, 218, 72);
+    background-color: rgb(135, 150, 55);
 }
 
 .screenContainer > div.right {
@@ -92,6 +155,7 @@ button:hover{
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-evenly;
+    align-items: center;
 }
 
 .buttonContainer {
@@ -131,10 +195,6 @@ button:hover{
 
 .stats, .inc > div {
     height: 100%;
-}
-
-#titlediv {
-    font: 1.5em "rubikdirt", monospace;
 }
 
 @media (max-width: 800px) {

@@ -10,44 +10,64 @@
     <div class = "screenContainer"> 
         <div class = "left flexContainerV">
             <div id = "titlediv">
-                <h1>
+                <div id = "titleInnerWrapper" class = "flexContainerH">
+                    <div class = "star">
+                       <p>&star;</p> 
+                    </div>
+                    <h1>
                     Self Quizzer
-                </h1>
+                    </h1>
+                    <div class = "star">
+                       <p>&star;</p> 
+                    </div>
+                </div>
+                
             </div>
             <div>
-                <div>
-                    <h3>
-                        Input Questions & Answers
-                    </h3>
+                <div class = "lightwrapper">
+                <h2>
+                    Input Questions & Answers
+                </h2>
                 </div>
-                <div>
-                <label>Input TSV data file (import from sheets)</label> <input type = "file" id = "questionFileInput">
-                <p>OR</p>  
+                <div class = "lightwrapper">
+                    <div>
+                    <strong><p>Input TSV data file (import from sheets)</p> </strong> <input type = "file" id = "questionFileInput">
+                    </div>
+                    <p>OR</p>  
+                    <div>
+                        <strong>
+                            <p>Manually input question & answer</p>
+                        </strong>
+                        <p class = "desc">→ Separate each question & answer with <u>tab</u></p>
+                        <p class = "desc">→ Separate each q/a pair with newline (enter)</p>
+                        <p class = "desc">→ Ideally, copy and paste from a spreadsheet 😁</p>
+                        <br> <textarea id = "questionTextInput"></textarea> <br>
+                    </div>
+                    <div>
+                    <button id = "questionInput">Submit question input</button> 
+                    <p id = "inputFeedback"></p>
+                    </div> 
                 </div>
-                <div>
-                    <p>Manually input question & answer</p>
-                    <p class = "desc">→ Separate each question & answer with <u>tab</u></p>
-                    <p class = "desc">→ Separate each q/a pair with newline (enter)</p>
-                    <br> <textarea id = "questionTextInput"></textarea> <br>
-                </div>
-                <div>
-                   <button id = "questionInput">Submit question input</button> 
-                </div> 
             </div>
             <div>
-                <h3>Quiz Options</h3>
-                <div>
-                    <p id = "questionInputError"></p>
+                <div class = "lightwrapper">
+                    <h2>Quiz Options</h2>
                 </div>
-                <div class = buttonContainer>
-                    <input type = "radio" name = "questiontype" id = "multiChoice" hidden> <label hidden>Multiple Choice</label>
-                    <input type = "radio" name = "questiontype" id = "inputAnsAsText" checked> <label>Type answer</label> 
-                    <input type = "radio" name = "questiontype" id = "incOnly"> <label>Past incorrect only</label>
-                </div>
-                <br>
-                <div class = "buttonContainer">
-                    <div><button id = "start" value = "false">Start Quizzing!</button> </div>
-                    <div><button id = "resetInc" value = "false">Reset Incorrect Questions</button></div>
+                <div class = "lightwrapper">
+                   <div>
+                        <p id = "questionInputError"></p>
+                    </div>
+                    <div class = buttonContainer>
+                        <input type = "radio" name = "questiontype" id = "multiChoice" hidden> <label hidden>Multiple Choice</label>
+                        <input type = "radio" name = "questiontype" id = "inputAnsAsText" checked> <label>Type answer</label> 
+                        <input type = "radio" name = "questiontype" id = "incOnly"> <label>Past incorrect only</label>
+                    </div> 
+                    <br>
+                    <div class = "buttonContainer">
+                        <div><button id = "start" value = "false">Start Quizzing!</button> </div>
+                        <div><button id = "resetInc" value = "false">Reset Incorrect Questions</button></div>
+                    </div>
+                    <br>
                 </div>
             </div>
             <div hidden>
@@ -91,9 +111,9 @@
             </div>
             <div class = "left flexContainerV">
                 <div class = "stats">
-                    <label>Stats</label><br><br>
-                    <div><p>Total questions: </p><p id = "totalQuestionsCount">0</p></div>
-                    <div><p>Skipped: </p><p id = "skippedQuestionsCount">0</p></div>
+                    <h2>STATS</h2><br><br>
+                    <div><p> <strong>Total questions: </strong></p><p id = "totalQuestionsCount">0</p></div>
+                    <div><p><strong>Skipped: </strong></p><p id = "skippedQuestionsCount">0</p></div>
                     <div><p>Unanswered: </p><p id = "unansweredQuestionsCount">0</p></div>
                     <div><p>Answered: </p><p id = "answeredQuestionsCount">0</p></div>
                     <div><p>Incorrect: </p><p id = "incorrectQuestionsCount">0</p></div>

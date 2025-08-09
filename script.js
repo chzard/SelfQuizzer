@@ -49,7 +49,8 @@ function takeQuestionInput() {
         reader.onload = () => storeResults(reader.result);
         function storeResults(result) {
             fileInput = result;
-            console.log("File read")
+            console.log("File read");
+            document.getElementById("inputFeedback").innerHTML = "File read!";
             //document.getElementById("loading").hidden = true;
             //document.getElementById("quizFieldSet").hidden = false;
         }
@@ -114,6 +115,9 @@ function checkAnswer() {
         //empty question
         document.getElementById("answerFeedback").innerHTML = "You can't check if you answered correctly to a nonexistent question! Input your question/answer set and press the start quizzing button.";
     }
+    else if (quizQuestions.length == 0) {
+        document.getElementById("answerFeedback").innerHTML = "You haven't inputted any questions!";
+    }
     else {
         document.getElementById("skipQuestion").hidden = true;
         document.getElementById("nextQuestion").hidden = false;
@@ -169,6 +173,7 @@ function updateStats() {
 }
 
 function skipQuestion() {
+    if (quizQuestions.length == 0) {return;}
     setNewQuestion(true); 
     skippedQuestionsCount++; document.getElementById("skippedQuestionsCount").innerHTML = skippedQuestionsCount;
 }
