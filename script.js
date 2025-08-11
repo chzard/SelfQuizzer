@@ -8,6 +8,14 @@ document.getElementById("checkAnswer").addEventListener("click", checkAnswer);
 document.getElementById("nextQuestion").addEventListener("click", nextQuestion);
 document.getElementById("skipQuestion").addEventListener("click", skipQuestion);
 document.getElementById("resetInc").addEventListener("click", resetInc);
+document.getElementById("themes").addEventListener("click", expThemes);
+//document.getElementsByName("theme").addEventListener("change", updateTheme);
+
+var themeradios = document.forms["themesForm"].elements["theme"];
+for (var i=0; i < themeradios.length; i++) {
+    //themeradios[i].onclick = updateTheme();
+    themeradios[i].addEventListener("click", updateTheme);
+}
 
 var textInput = "";
 var fileInput = "";
@@ -33,19 +41,23 @@ function takeQuestionInput() {
     if (file) {
         //Loading
         console.log("Loading file");
-        document.getElementById("loading").hidden = false;
-        document.getElementById("quizFieldSet").hidden = true;
+        //document.getElementById("loading").hidden = false;
+        //document.getElementById("quizFieldSet").hidden = true;
         //read file input
         const reader = new FileReader();
         reader.readAsText(file);
         reader.onload = () => storeResults(reader.result);
         function storeResults(result) {
             fileInput = result;
-            console.log("File read")
-            document.getElementById("loading").hidden = true;
-            document.getElementById("quizFieldSet").hidden = false;
+            console.log("File read");
+            document.getElementById("inputFeedback").innerHTML = "File read!";
+            //document.getElementById("loading").hidden = true;
+            //document.getElementById("quizFieldSet").hidden = false;
         }
         reader.onerror = () => {console.log("File input failed to read"); document.getElementById("questionInputError").innerHTML = "Could not upload questions!";};
+    }
+    if (file || textInput) {
+        document.getElementById("questionInputError").innerHTML = "";
     }
 }
 
@@ -57,27 +69,29 @@ function initQuiz() {
     }
     else if (!(fileInput || textInput)) {
         console.log("No input detected");
-        document.getElementById("questionInputError").innerHTML = "Please input the questions you want to be quizzed about above.";
+        document.getElementById("questionInputError").innerHTML = "Please input the questions you want to be quizzed on above.";
     }  
     else {
+        document.getElementById("questionInputError").innerHTML = "";
         if (fileInput) {quizMaterial = fileInput;}
         else if (textInput) {quizMaterial = textInput;}
         console.log("Quiz starting");
+        document.getElementById("questionInputError").innerHTML = "";
         interpretUserInput();
         if (document.getElementById('incOnly').checked) {
             quizQuestions = [...totalWrongQuestions];
             quizAnswers = [...totalWrongQuestionsAnswers];
         }
         //debugging
-        //console.log("Questions:", quizQuestions);
-        //console.log("Answers:", quizAnswers);
+        console.log("Questions:", quizQuestions);
+        console.log("Answers:", quizAnswers);
         document.getElementById("start").innerHTML = "Start Quizzing";
         document.getElementById("nextQuestion").disabled = false;
         document.getElementById("totalQuestionsCount").innerHTML = quizQuestions.length;
         document.getElementById("unansweredQuestionsCount").innerHTML = quizAnswers.length;
         prevQ = -1; 
         wrongQuestions = [];
-        wrongAnswers = [];
+        wrongQuestionsAnswers = [];
         skippedQuestionsCount = 0;
         answeredQuestions = [];
         updateStats(); document.getElementById("accuracyNum").innerHTML = 0;
@@ -94,7 +108,7 @@ function interpretUserInput() {
     for (let i = 0; i < lines.length; i++) {
         line = lines[i].split("\t");
         q = line[0]; a = line[1];
-        if (!(q in quizQuestions)) {
+        if (!(q in quizQuestions) && (a != null) && (q != null)) {
             quizQuestions.push(q);
             quizAnswers.push(a);
         }
@@ -106,6 +120,9 @@ function checkAnswer() {
         //empty question
         document.getElementById("answerFeedback").innerHTML = "You can't check if you answered correctly to a nonexistent question! Input your question/answer set and press the start quizzing button.";
     }
+    else if (quizQuestions.length == 0) {
+        document.getElementById("answerFeedback").innerHTML = "You haven't inputted any questions!";
+    }
     else {
         document.getElementById("skipQuestion").hidden = true;
         document.getElementById("nextQuestion").hidden = false;
@@ -115,6 +132,7 @@ function checkAnswer() {
         //if answer is correct
         if (curAnswer == quizAnswers[ind]) {
             document.getElementById("answerFeedback").innerHTML = "Your answer is correct!";
+            document.getElementById("answerFeedback").style.color = "green";
             if (itemInList(curQuestion, totalWrongQuestions)) {
                 console.log('Remove correct')
                 //Remove the question's list element if it's correct
@@ -124,12 +142,13 @@ function checkAnswer() {
                 li.parentNode.removeChild(li);
                 totalWrongQuestions = delItemList(i, totalWrongQuestions);
                 totalWrongQuestionsAnswers = delItemList(i, totalWrongQuestionsAnswers);
-                console.log(totalWrongQuestions);
-                console.log(totalWrongQuestionsAnswers);
+                //console.log(totalWrongQuestions);
+                //console.log(totalWrongQuestionsAnswers);
                 if (totalWrongQuestionsAnswers.length==0) {document.getElementById("noInc").hidden = false;}
             }
         }
         else { //incorrect answer
+            document.getElementById("answerFeedback").style.color = "red";
             document.getElementById("answerFeedback").innerHTML = "Incorrect;\nThe answer was " + quizAnswers[ind];
             wrongQuestions.push(curQuestion);
             wrongQuestionsAnswers.push(quizAnswers[ind]);
@@ -137,10 +156,12 @@ function checkAnswer() {
                 //delete first "no incorrect answers yet"
                 document.getElementById("noInc").hidden = true;
                 //add to incorrect questions
-                const node = document.createElement("li");
-                const textnode = document.createTextNode(curQuestion);
+                var node = document.createElement("li");
+                var textnode = document.createTextNode(curQuestion);
                 node.appendChild(textnode);
                 document.getElementById("incorrectQuestionsList").appendChild(node);
+                totalWrongQuestions.push(curQuestion);
+                totalWrongQuestionsAnswers.push(quizAnswers[ind]);
             }
         }
         updateStats();
@@ -158,8 +179,11 @@ function updateStats() {
 }
 
 function skipQuestion() {
-    setNewQuestion(true); 
+    if (quizQuestions.length > 1) {
+       setNewQuestion(true); 
+    }
     skippedQuestionsCount++; document.getElementById("skippedQuestionsCount").innerHTML = skippedQuestionsCount;
+    
 }
 
 function nextQuestion() {
@@ -175,14 +199,9 @@ function nextQuestion() {
         answeredQuestions = [];
         document.getElementById("quizQuestion").innerHTML = "All questions asked";
         document.getElementById("checkAnswer").disabled = true;
+        document.getElementById("skipQuestion").disabled = true;
         document.getElementById('start').innerHTML = "Restart quiz";
         document.getElementById('nextQuestion').disabled = true;
-        for (var i=0; i<wrongQuestions.length; i++) {
-            if (!itemInList(wrongQuestions[i], totalWrongQuestions)) {
-                totalWrongQuestions.push(wrongQuestions[i]);
-                totalWrongQuestionsAnswers.push(wrongQuestionsAnswers[i]);
-            }
-        }
     }
 }
 
@@ -199,8 +218,42 @@ function setNewQuestion(skip = false) {
 }
 
 function resetInc() {
+    var node = document.getElementById("incorrectQuestionsList");
+    for (var i=0; i<totalWrongQuestions.length; i++) {
+        node.removeChild(node.lastChild);
+    }
+    document.getElementById("noInc").hidden = false;
     totalWrongQuestions = []; totalWrongQuestionsAnswers = [];
+
 }
+
+function expThemes() {
+    var hide = document.getElementById("themesWrapper").hidden;
+    document.getElementById("themesWrapper").hidden = !hide;
+    var text = document.getElementById("themes").innerHTML;
+    if (text == "Expand themes") {document.getElementById("themes").innerHTML = "Collapse themes";}
+    else {document.getElementById("themes").innerHTML = "Expand themes";}
+}
+
+function updateTheme() {
+    //var tm = document.getElementsByName("theme").value;
+    //var tm = document.getElementById("themesForm").value;
+    var tm = document.querySelector('input[name="theme"]:checked').value;
+    console.log("Theme updating");
+    console.log(tm);
+    switch (tm) {
+        case "dark":
+            document.body.style.backgroundColor = "black";
+            document.body.style.color = "white";
+            break;
+        default:
+            document.body.style.backgroundColor = "white";
+            document.body.style.color = "black";
+            document.body.style.fontFamily = 'Courier New', monospace;
+            break;
+    }
+}
+
 
 //helper functions
 function getRandomInt(min, max) {

@@ -3,97 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quizzer</title>
+    <title>Self Quizzer</title>
     <link rel = "stylesheet" href = "styles.css">
 </head>
 <body>
-    <header>
-        Vocab Quizzer
-    </header>
-    <h1>
-        Self Quizzer
-    </h1>
-    <div>
-        <fieldset>
-            <h2>
-                input questions/answers here
-            </h2>
-            <label>input tsv data file (import from sheets)</label>
-            <input type = "file" id = "questionFileInput">
-            <br>
-            <label>text input questions/answers down here, separate by tab</label>
-            <br><textarea id = "questionTextInput" rows = "8", cols = "50"></textarea> <br>
-            <button id = "questionInput">Submit question input</button>
-        </fieldset>
-    </div>
-    <div>
-        <p1 id = "loading" hidden>Loading...</p1>
-        <fieldset id = "quizFieldSet">
-            <legend>Quiz</legend>
-            <h2>
-                quiz info
-            </h2>
-            <h3>
-                quiz type:
-            </h3>
-            <div>
-            <input type = "radio" name = "questiontype" id = "multiChoice" hidden> <label hidden>multiple choice</label>
-            <input type = "radio" name = "questiontype" id = "inputAnsAsText" checked> <label>type answer</label> 
-            <input type = "radio" name = "questiontype" id = "incOnly"> <label>past incorrect only</label> <br>
+    <div class = "screenContainer"> 
+        <div class = "left flexContainerV">
+            <div id = "titlediv">
+                <div id = "titleInnerWrapper" class = "flexContainerH">
+                    <div class = "star">
+                       <p>&star;</p> 
+                    </div>
+                    <h1>
+                    Self Quizzer
+                    </h1>
+                    <div class = "star">
+                       <p>&star;</p> 
+                    </div>
+                </div>
+                
             </div>
             <div>
-                <label>Total questions: </label><p id = "totalQuestionsCount">0</p>
+                <div class = "lightwrapper">
+                <h2>
+                    Input Questions & Answers
+                </h2>
+                </div>
+                <div class = "lightwrapper">
+                    <div>
+                    <strong><p>Input TSV data file (import from sheets)</p> </strong> <input type = "file" id = "questionFileInput">
+                    </div>
+                    <p>OR</p>  
+                    <div>
+                        <strong>
+                            <p>Manually input question & answer</p>
+                        </strong>
+                        <p class = "desc">→ Separate each question & answer with <u>tab</u></p>
+                        <p class = "desc">→ Separate each q/a pair with newline (enter)</p>
+                        <p class = "desc">→ Ideally, copy and paste from a spreadsheet 😁</p>
+                        <br> <textarea id = "questionTextInput"></textarea> <br>
+                    </div>
+                    <div>
+                    <button id = "questionInput">Submit question input</button> 
+                    <p id = "inputFeedback"></p>
+                    </div> 
+                </div>
             </div>
-            <h2>
-                quiz away
-            </h2>
-            <button id = "start" value = "false">Start Quizzing!</button> 
-            <button id = "resetInc" value = "false">Reset Incorrect Questions</button> <br><br>
-            <label id = "questionInputError"></label>
-            <table>
-                <tr>
-                    <th>Quiz</th>
-                    <th>Options</th>
-                    <th>Quiz Info</th>
-                </tr>
-                <tr>
-                    <td>
-                        <label>Question </label>
+            <div>
+                <div class = "lightwrapper">
+                    <h2>Quiz Options</h2>
+                </div>
+                <div class = "lightwrapper">
+                   <div>
+                        <p id = "questionInputError"></p>
+                    </div>
+                    <div class = buttonContainer>
+                        <input type = "radio" name = "questiontype" id = "multiChoice" hidden> <label hidden>Multiple Choice</label>
+                        <input type = "radio" name = "questiontype" id = "inputAnsAsText" checked> <label>Type answer</label> 
+                        <input type = "radio" name = "questiontype" id = "incOnly"> <label>Past incorrect only</label>
+                    </div> 
+                    <br>
+                    <div class = "buttonContainer">
+                        <div><button id = "start" value = "false">Start Quizzing!</button> </div>
+                        <div><button id = "resetInc" value = "false">Reset Incorrect Questions</button></div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+            <div hidden>
+                <div id = "themesWrapper" hidden>
+                    <form id = "themesForm">
+                        <input type = "radio" name = "theme" id = "default" value = "default" checked> <label id = "defaultpvw">default</label><br> 
+                        <input type = "radio" name = "theme" id = "dark" value = "dark"> <label id = "darkpvw">dark</label> <br>
+                        <input type = "radio" name = "theme" id = "light" value = "light"> <label id = "lightpvw">light</label> <br>
+                        <input type = "radio" name = "theme" id = "eyesore" value = "eyesore"> <label id = "eyesorepvw">Fun and Pink and Bubbly :3</label> <br>
+                        <input type = "radio" name = "theme" id = "hacker" value = "hacker"> <label id = "hackerpvw">im a hacker heh eh eheh</label> <br>
+                        <input type = "radio" name = "theme" id = "gay" value = "gay"> <label id = "gaypvw">gay</label><br>
+                        <input type = "radio" name = "theme" id = "purple" value = "purple"> <label id = "purplepvw">purple</label><br>
+                        <input type = "radio" name = "theme" id = "notheme" value = "notheme"> <label id = "nothemepvw">no theme</label> <br>
+                    </form>
+                </div>
+                <br>
+                <button id = "themes">Expand themes</button>
+            </div>
+        </div>
+        <div class = "right">
+            <div class = "quizContainer flexContainerV">
+                    <div class = "wrapText">
+                        <div class = "lightwrapper">
+                            <h1>Quiz</h1>
+                        <p><b><u>Question</u></b></p>
                         <p id = "quizQuestion"></p>
-                        <label>Answer</label>
+                        
+                        <label>Answer:</label>
                         <input type = "text" id = "userAnswer" name = "answer" value = ""> <br>
                         <input type = "radio" id = "userMC1" name = "MC" hidden> <label id = "MC1" hidden></label> <br>
                         <input type = "radio" id = "userMC2" name = "MC" hidden> <label id = "MC2" hidden></label> <br>
                         <input type = "radio" id = "userMC3" name = "MC" hidden> <label id = "MC3" hidden></label> <br>
-                    </td>
-                    <td>
-                        <button type = "button" id = "checkAnswer">Check Answer</button>
-                        <button type = "button" id = "nextQuestion" hidden>Next question</button>
-                        <button type = "button" id = "skipQuestion">Skip question</button>
+                        <div id = "feedbackWrapper">
+                            <p id = "answerFeedback"></p>
+                        </div>
+                        
+                    </div>
                         <br>
-                        <p id = "answerFeedback"></p>
-                    </td>
-                    <td>
-                        <label>Skipped questions: </label><p id = "skippedQuestionsCount">0</p>
-                        <label>Unanswered questions: </label><p id = "unansweredQuestionsCount">0</p>
-                        <label>Answered questions: </label><p id = "answeredQuestionsCount">0</p>
-                        <label>Incorrect questions: </label><p id = "incorrectQuestionsCount">0</p>
-                        <label>Correct questions: </label><p id = "correctQuestionsCount">0</p>
-                        <label>Accuracy: </label><p id = "accuracyNum">0</p><label>%</label>
-                    </td>
-                </tr>
-            </table>
-        </fieldset>
-    </div>
-    <div>
-        <fieldset>
-            <h2>Past incorrect questions (from all quizzes so far)
-            </h2>
-            <ol id = "incorrectQuestionsList">
-                <li id = "noInc">No incorrect answers</li>
-            </ol>
-        </fieldset>
+                        <div class = "buttonContainer" id = "usercontrols">
+                        <div><button type = "button" id = "checkAnswer">Check Answer</button></div>
+                        <div><button type = "button" id = "nextQuestion" hidden>Next question</button></div>
+                        <div><button type = "button" id = "skipQuestion">Skip question</button></div>
+                    </div>  
+                    </div>
+                                       
+            </div>
+            <div class = "left flexContainerV">
+                <div class = "stats" id = "stat">
+                    <h2>STATS</h2><br><br>
+                    <div><p> <strong>Total questions: </strong></p><p id = "totalQuestionsCount">0</p></div>
+                    <div><p><strong>Skipped: </strong></p><p id = "skippedQuestionsCount">0</p></div>
+                    <div><p>Unanswered: </p><p id = "unansweredQuestionsCount">0</p></div>
+                    <div><p>Answered: </p><p id = "answeredQuestionsCount">0</p></div>
+                    <div><p>Incorrect: </p><p id = "incorrectQuestionsCount">0</p></div>
+                    <div><p>Correct: </p><p id = "correctQuestionsCount">0</p></div>
+                    <div><p>Accuracy: </p> 
+                        <div id = "percent"> 
+                            <p id = "accuracyNum">0</p><p>%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class = "inc flexContainerV">
+                <div>
+                   <h2>Previous incorrect questions
+                    </h2>
+                    <p class = "desc">(from all quizzes taken so far)</p>
+                    <ol id = "incorrectQuestionsList">
+                        <li id = "noInc">No incorrect answers</li>
+                    </ol> 
+                </div>
+            </div>
+        </div>
     </div>
 </body>
-<script src = "script.js" ></script>
+<script src = "script.js"></script>
 </html>
