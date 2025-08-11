@@ -90,17 +90,22 @@
         <div class = "right">
             <div class = "quizContainer flexContainerV">
                     <div class = "wrapText">
-                        <h1>Quiz</h1>
+                        <div class = "lightwrapper">
+                            <h1>Quiz</h1>
                         <p><b><u>Question</u></b></p>
                         <p id = "quizQuestion"></p>
-                        <p id = "answerFeedback"></p>
-                        <br>
+                        
                         <label>Answer:</label>
                         <input type = "text" id = "userAnswer" name = "answer" value = ""> <br>
                         <input type = "radio" id = "userMC1" name = "MC" hidden> <label id = "MC1" hidden></label> <br>
                         <input type = "radio" id = "userMC2" name = "MC" hidden> <label id = "MC2" hidden></label> <br>
                         <input type = "radio" id = "userMC3" name = "MC" hidden> <label id = "MC3" hidden></label> <br>
+                        <div id = "feedbackWrapper">
+                            <p id = "answerFeedback"></p>
+                        </div>
                         
+                    </div>
+                        <br>
                         <div class = "buttonContainer" id = "usercontrols">
                         <div><button type = "button" id = "checkAnswer">Check Answer</button></div>
                         <div><button type = "button" id = "nextQuestion" hidden>Next question</button></div>
@@ -110,7 +115,7 @@
                                        
             </div>
             <div class = "left flexContainerV">
-                <div class = "stats">
+                <div class = "stats" id = "stat">
                     <h2>STATS</h2><br><br>
                     <div><p> <strong>Total questions: </strong></p><p id = "totalQuestionsCount">0</p></div>
                     <div><p><strong>Skipped: </strong></p><p id = "skippedQuestionsCount">0</p></div>

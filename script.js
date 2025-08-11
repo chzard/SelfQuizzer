@@ -56,6 +56,9 @@ function takeQuestionInput() {
         }
         reader.onerror = () => {console.log("File input failed to read"); document.getElementById("questionInputError").innerHTML = "Could not upload questions!";};
     }
+    if (file || textInput) {
+        document.getElementById("questionInputError").innerHTML = "";
+    }
 }
 
 function initQuiz() {
@@ -66,20 +69,22 @@ function initQuiz() {
     }
     else if (!(fileInput || textInput)) {
         console.log("No input detected");
-        document.getElementById("questionInputError").innerHTML = "Please input the questions you want to be quizzed about above.";
+        document.getElementById("questionInputError").innerHTML = "Please input the questions you want to be quizzed on above.";
     }  
     else {
+        document.getElementById("questionInputError").innerHTML = "";
         if (fileInput) {quizMaterial = fileInput;}
         else if (textInput) {quizMaterial = textInput;}
         console.log("Quiz starting");
+        document.getElementById("questionInputError").innerHTML = "";
         interpretUserInput();
         if (document.getElementById('incOnly').checked) {
             quizQuestions = [...totalWrongQuestions];
             quizAnswers = [...totalWrongQuestionsAnswers];
         }
         //debugging
-        //console.log("Questions:", quizQuestions);
-        //console.log("Answers:", quizAnswers);
+        console.log("Questions:", quizQuestions);
+        console.log("Answers:", quizAnswers);
         document.getElementById("start").innerHTML = "Start Quizzing";
         document.getElementById("nextQuestion").disabled = false;
         document.getElementById("totalQuestionsCount").innerHTML = quizQuestions.length;
@@ -127,6 +132,7 @@ function checkAnswer() {
         //if answer is correct
         if (curAnswer == quizAnswers[ind]) {
             document.getElementById("answerFeedback").innerHTML = "Your answer is correct!";
+            document.getElementById("answerFeedback").style.color = "green";
             if (itemInList(curQuestion, totalWrongQuestions)) {
                 console.log('Remove correct')
                 //Remove the question's list element if it's correct
@@ -142,7 +148,7 @@ function checkAnswer() {
             }
         }
         else { //incorrect answer
-            
+            document.getElementById("answerFeedback").style.color = "red";
             document.getElementById("answerFeedback").innerHTML = "Incorrect;\nThe answer was " + quizAnswers[ind];
             wrongQuestions.push(curQuestion);
             wrongQuestionsAnswers.push(quizAnswers[ind]);
@@ -173,9 +179,11 @@ function updateStats() {
 }
 
 function skipQuestion() {
-    if (quizQuestions.length == 0) {return;}
-    setNewQuestion(true); 
+    if (quizQuestions.length > 1) {
+       setNewQuestion(true); 
+    }
     skippedQuestionsCount++; document.getElementById("skippedQuestionsCount").innerHTML = skippedQuestionsCount;
+    
 }
 
 function nextQuestion() {
@@ -191,6 +199,7 @@ function nextQuestion() {
         answeredQuestions = [];
         document.getElementById("quizQuestion").innerHTML = "All questions asked";
         document.getElementById("checkAnswer").disabled = true;
+        document.getElementById("skipQuestion").disabled = true;
         document.getElementById('start').innerHTML = "Restart quiz";
         document.getElementById('nextQuestion').disabled = true;
     }
